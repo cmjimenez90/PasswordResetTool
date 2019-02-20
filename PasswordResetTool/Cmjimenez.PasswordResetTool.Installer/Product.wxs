@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"><?define Cmjimenez.PasswordResetTool.Application_TargetDir=$(var.Cmjimenez.PasswordResetTool.Application.TargetDir)?>
+	<Product Id="3E969B51-83AE-41EC-BEE6-663C84C8B507" Name="Password Reset Tool" Language="1033" Version="1.0.0.0" Manufacturer="Cmjimenez.com" UpgradeCode="d01957db-ddbd-49ad-aa88-49a3ae07ec23">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
+    <Condition Message="This application requires .NET Framework 4.6.1. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
+    </Condition>
+    
+		<Feature Id="ProductFeature" Title="Password Reset Tool" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="Cmjimenez" Name="Cmjimenez">
+          <Directory Id="INSTALLFOLDER" Name="Password Reset Tool" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Password Reset Tool"/>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop"/>
+		</Directory>
+	</Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="9E9D124E-141F-497A-8825-0A1B980143A8">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Password Reset Tool" Description="Password Reset Tool" Target="[INSTALLFOLDER]Password Reset Tool.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Password Reset Tool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="ApplicationShortcutDesktop" Guid="2BF529E5-0040-41FB-9EAA-7AA73A4376AD">
+        <Shortcut Id="ApplicationDesktopShortcut" Name="Password Reset Tool" Description="Password Reset Tool" Target="[INSTALLFOLDER]Password Reset Tool.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Password Reset Tool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="Cmjimenez.PasswordResetTool.Application.exe" Guid="efa5e456-e735-4d10-9616-e2b5a0f55ebc">
+			  <File Id="Cmjimenez.PasswordResetTool.Application.exe" Name="Password Reset Tool.exe" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)Cmjimenez.PasswordResetTool.Application.exe" />
+			</Component>
+			<Component Id="Cmjimenez.PasswordResetTool.Application.exe.config" Guid="0cf8ef85-dfa4-4629-ab13-fbaa804a66fc">
+			  <File Id="Cmjimenez.PasswordResetTool.Application.exe.config" Name="Password Reset Tool.exe.config" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)Cmjimenez.PasswordResetTool.Application.exe.config" />
+			</Component>
+			<Component Id="GalaSoft.MvvmLight.dll" Guid="1add9e96-68ad-4714-a75e-209f3d634e8c">
+			  <File Id="GalaSoft.MvvmLight.dll" Name="GalaSoft.MvvmLight.dll" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)GalaSoft.MvvmLight.dll" />
+			</Component>
+			<Component Id="GalaSoft.MvvmLight.Platform.dll" Guid="67b7a994-9c2a-4b0b-b59d-7a7497e92dbc">
+			  <File Id="GalaSoft.MvvmLight.Platform.dll" Name="GalaSoft.MvvmLight.Platform.dll" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)GalaSoft.MvvmLight.Platform.dll" />
+			</Component>
+			<Component Id="CommonServiceLocator.dll" Guid="cb15b7cb-a022-4bdb-842f-1cf9e594ef5e">
+			  <File Id="CommonServiceLocator.dll" Name="CommonServiceLocator.dll" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)CommonServiceLocator.dll" />
+			</Component>
+			<Component Id="GalaSoft.MvvmLight.Extras.dll" Guid="9acea005-872d-4b58-a0bc-5d9864eae32d">
+			  <File Id="GalaSoft.MvvmLight.Extras.dll" Name="GalaSoft.MvvmLight.Extras.dll" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)GalaSoft.MvvmLight.Extras.dll" />
+			</Component>
+			<Component Id="System.Windows.Interactivity.dll" Guid="c61119d6-63c1-4032-85b9-8753e605e223">
+			  <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.Cmjimenez.PasswordResetTool.Application_TargetDir)System.Windows.Interactivity.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

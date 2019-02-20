@@ -1,0 +1,39 @@
+﻿<Window x:Class="Cmjimenez.PasswordResetTool.Application.Main.View.MainAppView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Cmjimenez.PasswordResetTool.Application.PasswordReset.ViewModel"
+        xmlns:view="clr-namespace:Cmjimenez.PasswordResetTool.Application.PasswordReset.View"
+        DataContext="{Binding MainAppViewModel, Source={StaticResource Locator}}"
+        mc:Ignorable="d"
+        Title="Password Reset Tool"
+        Height="350" Width="500"
+        Background="#29568f">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:BannerIDSearchViewModel}">
+            <view:BannerIDSearchView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UserDetailsViewModel}">
+            <view:UserDetailsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PasswordResetViewModel}">
+            <view:PasswordResetView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PasswordResetResultViewModel}">
+            <view:PasswordResetResultView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UserNotFoundViewModel}">
+            <view:UserNotFoundView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="/Resources/Institution_Logo.png"/>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+    </Grid>
+</Window>

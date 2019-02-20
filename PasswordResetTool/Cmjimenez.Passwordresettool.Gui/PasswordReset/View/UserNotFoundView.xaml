@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Cmjimenez.PasswordResetTool.Application.PasswordReset.View.UserNotFoundView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             DataContext="{Binding UserNotFoundViewModel, Source={StaticResource Locator}}"
+             Background="#29568f"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource DefaultLabel}" ContentStringFormat="MESSAGE: No User Found - {0}" Content="{Binding BannerID}"></Label>
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource DefaultButton}" Command="{Binding ConfirmCommand}">CONFIRM</Button>
+    </Grid>
+</UserControl>
